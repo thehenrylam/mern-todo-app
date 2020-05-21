@@ -1,19 +1,7 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import axios from 'axios';
-
-const Todo = props => (
-    <tr>
-        <td className={props.todo.todo_completed ? 'completed' : ''}>{props.todo.todo_description}</td>
-        <td className={props.todo.todo_completed ? 'completed' : ''}>{props.todo.todo_responsible}</td>
-        <td className={props.todo.todo_completed ? 'completed' : ''}>{props.todo.todo_priority}</td>
-        <td>
-            <Link to={"/edit/" + props.todo._id}>Edit</Link>
-            <span style={{ marginRight: "0.5rem", marginLeft: "0.5rem" }}>|</span>
-            <a href="#">Remove</a>
-        </td>
-    </tr>
-)
+import Todo from './todo-item.component';
 
 export default class TodosList extends Component {
 
@@ -38,13 +26,14 @@ export default class TodosList extends Component {
     updateStateFromServer() {
         axios.get('http://localhost:4000/todos/')
         .then(response => {
+            // Attempt to limit the amount of state updates
+            // by not updating the state if the new data is
+            // exactly the same as the old data within the state.
             if (this.state.todos.length === response.data.length) {
                 if (JSON.stringify(this.state.todos) !== JSON.stringify(response.data)) {
-                    console.log('update');
                     this.setState({todos: response.data});
                 }
             } else {
-                console.log('update');
                 this.setState({todos: response.data});
             }
         })
@@ -54,8 +43,10 @@ export default class TodosList extends Component {
     }
 
     todoList() {
+        // Set the callback function when the todo item is being removed
+        const onRemoveCallback = this.updateStateFromServer;
         return this.state.todos.map(function(currentTodo, i) {
-            return <Todo todo={currentTodo} key={i} />;
+            return <Todo todo={currentTodo} key={i} onRemoval={onRemoveCallback}/>;
         });
     }
 

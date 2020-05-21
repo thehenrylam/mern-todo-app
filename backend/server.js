@@ -66,7 +66,6 @@ todoRoutes.route('/update/:id').post(function (req, res) {
 
 todoRoutes.route('/remove/:id').post(function (req, res) {
     Todo.findByIdAndRemove(req.params.id, function(err, todo) {
-        res.redirect('/');
         if (todo) {
             // If todo is NOT null, that means that the todo object is removed.
             res.status(200).send('removal successful');
