@@ -64,6 +64,22 @@ todoRoutes.route('/update/:id').post(function (req, res) {
     });
 });
 
+todoRoutes.route('/remove/:id').post(function (req, res) {
+    Todo.findByIdAndRemove(req.params.id, function(err, todo) {
+        res.redirect('/');
+        if (todo) {
+            // If todo is NOT null, that means that the todo object is removed.
+            res.status(200).send('removal successful');
+        } else if (err) {
+            // If err is NOT null, that means that something has gone wrong, so report it.
+            res.status(err.status).send(err);
+        } else {
+            // If NEITHER todo nor err is valid, then we assume that the todo object is not found.
+            res.status(404).send('todo not found');
+        }
+    });
+});
+
 app.use('/todos', todoRoutes);
 
 app.listen(PORT, function() {

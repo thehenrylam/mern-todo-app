@@ -9,6 +9,8 @@ const Todo = props => (
         <td className={props.todo.todo_completed ? 'completed' : ''}>{props.todo.todo_priority}</td>
         <td>
             <Link to={"/edit/" + props.todo._id}>Edit</Link>
+            <span style={{ marginRight: "0.5rem", marginLeft: "0.5rem" }}>|</span>
+            <a href="#">Remove</a>
         </td>
     </tr>
 )
@@ -36,7 +38,15 @@ export default class TodosList extends Component {
     updateStateFromServer() {
         axios.get('http://localhost:4000/todos/')
         .then(response => {
-            this.setState({todos: response.data});
+            if (this.state.todos.length === response.data.length) {
+                if (JSON.stringify(this.state.todos) !== JSON.stringify(response.data)) {
+                    console.log('update');
+                    this.setState({todos: response.data});
+                }
+            } else {
+                console.log('update');
+                this.setState({todos: response.data});
+            }
         })
         .catch(function(error) {
             console.log(error);
