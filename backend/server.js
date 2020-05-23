@@ -2,16 +2,31 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const passportJwt = require("./config/passport");
 const mongoose = require('mongoose');
+const passport = require("passport");
+
 const todoRoutes = express.Router();
+const users = require("./routes/api/users.api");
+
 const PORT = 4000;
 
 let Todo = require('./todo.model');
 
 app.use(cors());
+app.use(
+    bodyParser.urlencoded({
+        extended: false
+    })
+);
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/todos', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(
+        'mongodb://127.0.0.1:27017/todos', 
+        { useNewUrlParser: true, useUnifiedTopology: true }
+    )
+    .then(() => console.log("Database successfully connected"))
+    .catch(err => console.log(err));
 const connection = mongoose.connection;
 
 connection.once('open', function() {
@@ -79,7 +94,16 @@ todoRoutes.route('/remove/:id').post(function (req, res) {
     });
 });
 
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+passportJwt(passport);
+
+// Set up routes for todos
 app.use('/todos', todoRoutes);
+// Set up routes for users
+app.use('/users', users);
 
 app.listen(PORT, function() {
     console.log(`Server is running on Port: ${PORT}`);
