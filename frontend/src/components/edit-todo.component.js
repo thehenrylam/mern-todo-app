@@ -139,7 +139,7 @@ export default class EditTodo extends Component {
                     </div>
                     <div className="form-group">
                         <input type="checkbox"
-                                className="form-check-input"
+                                style={{ marginRight: "0.5rem" }}
                                 id="completedCheckbox"
                                 name="completedCheckbox"
                                 onChange={this.onChangeTodoCompleted}
