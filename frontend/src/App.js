@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -16,19 +18,21 @@ import logo from "./logo.png";
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div className="App">
-          <Navbar />
-          <div className="container" style={{marginTop: 20}}>
-            <Route path="/" exact component={TodosList} />
-            <Route path="/edit/:id" component={EditTodo} />
-            <Route path="/create" component={CreateTodo} />
-            <Route path="/landing" component={Landing} />
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <div className="container" style={{marginTop: 20}}>
+              <Route path="/" exact component={TodosList} />
+              <Route path="/edit/:id" component={EditTodo} />
+              <Route path="/create" component={CreateTodo} />
+              <Route path="/landing" component={Landing} />
+              <Route path="/register" component={Register} />
+              <Route path="/login" component={Login} />
+            </div>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </Provider>
     );
   }
 }
