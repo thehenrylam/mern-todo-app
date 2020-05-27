@@ -12,13 +12,18 @@ import {
 export const registerUser = (userData, history) => dispatch => {
     axios
         .post("/users/regiser", userData)
-        .then(res => history.push("/login")) // re-direct to login on successful register
-        .catch(err => 
+        .then(res => {
+            history.push("/login");
+            console.log("[RegisterUser] Sucess");
+        }) // re-direct to login on successful register
+        .catch(err => {
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
-            })
-        );
+            });
+            console.log("[RegisterUser] Failure");
+            console.log(dispatch);
+        });
 };
 
 // Login (Get user token)
