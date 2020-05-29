@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import {
+    TODOEDIT_PAGE_ENDPOINT
+} from "../constants";
+
 export default class Todo extends Component {
 
     onRemoveTodo(todoId) {
@@ -20,7 +24,7 @@ export default class Todo extends Component {
                 <td className={todo.todo_completed ? 'completed' : ''}>{todo.todo_responsible}</td>
                 <td className={todo.todo_completed ? 'completed' : ''}>{todo.todo_priority}</td>
                 <td>
-                    <Link to={"/edit/" + todo._id}>Edit</Link>
+                    <Link to={`${TODOEDIT_PAGE_ENDPOINT}/${todo._id}`}>Edit</Link>
                     <span style={{ marginRight: "0.5rem", marginLeft: "0.5rem" }}>|</span>
                     <a href="#" onClick={this.onRemoveTodo.bind(this, todo._id)}>Remove</a>
                 </td>

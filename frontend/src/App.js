@@ -9,6 +9,15 @@ import store from "./store";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import {
+  LANDING_PAGE_ENDPOINT,
+  REGISTER_PAGE_ENDPOINT,
+  LOGIN_PAGE_ENDPOINT,
+  TODOLIST_PAGE_ENDPOINT,
+  TODOEDIT_PAGE_ENDPOINT,
+  TODOCREATE_PAGE_ENDPOINT
+} from "./constants";
+
 import Navbar from "./components/navbar.component";
 import CreateTodo from "./components/create-todo.component";
 import EditTodo from "./components/edit-todo.component";
@@ -18,8 +27,6 @@ import Register from "./components/register.component";
 import Login from "./components/login.component";
 
 import PrivateRoute from "./components/private/private-route.component";
-
-import logo from "./logo.png";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -50,16 +57,13 @@ class App extends Component {
           <div className="App">
             <Navbar />
             <div className="container" style={{marginTop: 20}}>
-              {/*<Route path="/" exact component={TodosList} />*/}
-              {/*<Route path="/edit/:id" component={EditTodo} />*/}
-              {/*<Route path="/create" component={CreateTodo} />*/}
-              <Route path="/landing" component={Landing} />
-              <Route path="/register" component={Register} />
-              <Route path="/login" component={Login} />
+              <Route exact path={LANDING_PAGE_ENDPOINT} component={Landing} />
+              <Route path={REGISTER_PAGE_ENDPOINT} component={Register} />
+              <Route path={LOGIN_PAGE_ENDPOINT} component={Login} />
               <Switch>
-                <PrivateRoute exact path="/" component={TodosList} />
-                <PrivateRoute path="/edit/:id" component={EditTodo} />
-                <PrivateRoute path="/create" component={CreateTodo} />
+                <PrivateRoute exact path={TODOLIST_PAGE_ENDPOINT} component={TodosList} />
+                <PrivateRoute path={TODOEDIT_PAGE_ENDPOINT + `/:id`} component={EditTodo} />
+                <PrivateRoute path={TODOCREATE_PAGE_ENDPOINT} component={CreateTodo} />
               </Switch>
             </div>
           </div>

@@ -4,10 +4,16 @@ import PropTypes from "prop-types";
 import { logoutUser } from "../actions/auth.action";
 
 import logo from "../logo.png";
-import setAuthToken from '../utils/setAuthToken.util';
 import checkAuthenticated from "../utils/checkAuthenticated.util";
-import store from '../store';
 import { connect } from 'react-redux';
+
+import {
+    LANDING_PAGE_ENDPOINT,
+    TODOLIST_PAGE_ENDPOINT,
+    TODOCREATE_PAGE_ENDPOINT,
+    LOGIN_PAGE_ENDPOINT,
+    REGISTER_PAGE_ENDPOINT
+} from "../constants";
 
 class Navbar extends Component {
 
@@ -24,19 +30,18 @@ class Navbar extends Component {
     }
 
     componentDidMount() {
-        var bLoggedIn = checkAuthenticated();
-        if (this.state.loggedIn !== bLoggedIn)
-        {
+        // var bLoggedIn = checkAuthenticated();
+        var bLoggedIn = this.props.auth.isAuthenticated;
+        if (this.state.loggedIn !== bLoggedIn) {
             this.setState({
                 loggedIn: bLoggedIn
             });
         }
     }
 
-    componentDidUpdate() {
-        var bLoggedIn = checkAuthenticated();
-        if (this.state.loggedIn !== bLoggedIn)
-        {
+    componentWillReceiveProps(nextProps) {
+        var bLoggedIn = nextProps.auth.isAuthenticated;
+        if (this.state.loggedIn !== bLoggedIn) {
             this.setState({
                 loggedIn: bLoggedIn
             });
@@ -60,7 +65,7 @@ class Navbar extends Component {
             justifyContent:"right"
         }}>
             <Link
-                to="/login"
+                to={LOGIN_PAGE_ENDPOINT}
                 className="btn btn-secondary"
                 style={{
                     marginLeft:"0.5rem", 
@@ -70,7 +75,7 @@ class Navbar extends Component {
                 Log In
             </Link>
             <Link
-                to="/register"
+                to={REGISTER_PAGE_ENDPOINT}
                 className="btn btn-primary"
                 style={{
                     marginLeft:"0.5rem", 
@@ -104,6 +109,21 @@ class Navbar extends Component {
         );
     }
 
+    renderTodoUtilityButtons() {
+        return (
+        <div className="nav-collapse">
+            <ul className="navbar-nav mr-auto">
+                <li className="navbar-item">
+                <Link to={TODOLIST_PAGE_ENDPOINT} className="nav-link">Todos</Link>
+                </li>
+                <li className="navbar-item">
+                <Link to={TODOCREATE_PAGE_ENDPOINT} className="nav-link">Create Todo</Link>
+                </li>
+            </ul>
+        </div>
+        );
+    }
+
     render() {
         return (
             <div className="container">          
@@ -111,17 +131,8 @@ class Navbar extends Component {
                 <a className="navbar-brand" href="https://duckduckgo.com/">
                 <img src={logo} width="30" height="30" alt="Custom logo that I made" />
                 </a>
-                <Link to="/" className="navbar-brand">MERN-Stack Todo App</Link>
-                <div className="nav-collapse">
-                <ul className="navbar-nav mr-auto">
-                    <li className="navbar-item">
-                    <Link to="/" className="nav-link">Todos</Link>
-                    </li>
-                    <li className="navbar-item">
-                    <Link to="/create" className="nav-link">Create Todo</Link>
-                    </li>
-                </ul>
-                </div>
+                <Link to={LANDING_PAGE_ENDPOINT} className="navbar-brand">MERN-Stack Todo App</Link>
+                {this.state.loggedIn ? this.renderTodoUtilityButtons() : () => false}
                 {this.state.loggedIn ? this.renderLoggedInButtons() : this.renderNotLoggedInButtons()}
             </nav>
             </div>

@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+import {
+    TODOLIST_PAGE_ENDPOINT
+} from "../constants";
+
 export default class EditTodo extends Component {
 
     constructor(props) {
@@ -78,7 +82,7 @@ export default class EditTodo extends Component {
                 console.log(res.data)
             });
 
-        this.props.history.push('/');
+        this.props.history.push(TODOLIST_PAGE_ENDPOINT);
     }
 
     render() {

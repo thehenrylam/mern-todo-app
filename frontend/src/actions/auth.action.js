@@ -11,7 +11,7 @@ import {
 // Register User
 export const registerUser = (userData, history) => dispatch => {
     axios
-        .post("/users/regiser", userData)
+        .post("/users/register", userData)
         .then(res => {
             history.push("/login");
             console.log("[RegisterUser] Sucess");
@@ -21,8 +21,6 @@ export const registerUser = (userData, history) => dispatch => {
                 type: GET_ERRORS,
                 payload: err.response.data
             });
-            console.log("[RegisterUser] Failure");
-            console.log(dispatch);
         });
 };
 

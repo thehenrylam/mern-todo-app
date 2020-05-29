@@ -5,6 +5,10 @@ import { connect } from "react-redux";
 import { loginUser } from "../actions/auth.action";
 import classnames from "classnames";
 
+import {
+    TODOLIST_PAGE_ENDPOINT
+} from "../constants";
+
 class Login extends Component {
 
     constructor(props) {
@@ -24,13 +28,13 @@ class Login extends Component {
         // If logged in and user navigates to Login page,
         // should redirect them to main page
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/");
+            this.props.history.push(TODOLIST_PAGE_ENDPOINT);
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/"); // push user to dashboard when they login
+            this.props.history.push(TODOLIST_PAGE_ENDPOINT); // push user to dashboard when they login
         }
 
         if (nextProps.errors) {
