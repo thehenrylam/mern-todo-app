@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import {
+    API_REMOVETODO_ENDPOINT
+} from "../constants";
+
+import {
     TODOEDIT_PAGE_ENDPOINT
 } from "../constants";
 
 export default class Todo extends Component {
 
     onRemoveTodo(todoId) {
-        axios.post('http://localhost:4000/todos/remove/' + todoId)
+        axios.post(API_REMOVETODO_ENDPOINT+todoId)
             .catch(function(err) {
                 console.log(err);
             });

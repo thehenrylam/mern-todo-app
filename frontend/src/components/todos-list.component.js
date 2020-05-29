@@ -3,6 +3,10 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Todo from './todo-item.component';
 
+import {
+    API_TODOLIST_ENDPOINT
+} from "../constants";
+
 export default class TodosList extends Component {
 
     constructor(props) {
@@ -24,7 +28,7 @@ export default class TodosList extends Component {
     }
 
     updateStateFromServer() {
-        axios.get('http://localhost:4000/todos/')
+        axios.get(API_TODOLIST_ENDPOINT)
         .then(response => {
             // Attempt to limit the amount of state updates
             // by not updating the state if the new data is

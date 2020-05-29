@@ -6,6 +6,7 @@ import { registerUser } from "../actions/auth.action";
 import classnames from "classnames";
 
 import {
+    LANDING_PAGE_ENDPOINT,
     TODOLIST_PAGE_ENDPOINT
 } from "../constants";
 
@@ -77,7 +78,11 @@ class Register extends Component {
                 <div className="row">
                     <div className="col s8 offset-s2">
                         
-                        <Link to="/" className="btn btn-secondary" style={{ marginBottom: "1rem" }}>
+                        <Link 
+                            to={LANDING_PAGE_ENDPOINT} 
+                            className="btn btn-secondary" 
+                            style={{ marginBottom: "1rem" }}
+                        >
                             Back to home
                         </Link>
                         

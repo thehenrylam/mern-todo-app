@@ -8,13 +8,17 @@ import {
     USER_LOADING
 } from "./types.action";
 
+import {
+    LOGIN_PAGE_ENDPOINT,
+    API_LOGIN_ENDPOINT,
+    API_REGISTER_ENDPOINT
+} from "../constants";
+
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-    axios
-        .post("/users/register", userData)
+    axios.post(API_REGISTER_ENDPOINT, userData)
         .then(res => {
-            history.push("/login");
-            console.log("[RegisterUser] Sucess");
+            history.push(LOGIN_PAGE_ENDPOINT);
         }) // re-direct to login on successful register
         .catch(err => {
             dispatch({
@@ -26,8 +30,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 // Login (Get user token)
 export const loginUser = userData => dispatch => {
-    axios
-        .post("/users/login", userData)
+    axios.post(API_LOGIN_ENDPOINT, userData)
         .then(res => {
             // Save to localStorage
 
