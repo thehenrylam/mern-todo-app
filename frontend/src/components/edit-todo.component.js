@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+import {
+    TODOLIST_PAGE_ENDPOINT,
+    API_TODOITEM_ENDPOINT,
+    API_UPDATETODO_ENDPOINT
+} from "../constants";
+
 export default class EditTodo extends Component {
 
     constructor(props) {
@@ -26,7 +32,7 @@ export default class EditTodo extends Component {
     }
 
     updateStateFromServer() {
-        axios.get('http://localhost:4000/todos/' + this.props.match.params.id)
+        axios.get(API_TODOITEM_ENDPOINT+this.props.match.params.id)
             .then(response => {
                 this.setState({
                     todo_description: response.data.todo_description,
@@ -73,12 +79,12 @@ export default class EditTodo extends Component {
             todo_completed: this.state.todo_completed
         };
 
-        axios.post('http://localhost:4000/todos/update/'+this.props.match.params.id, obj)
+        axios.post(API_UPDATETODO_ENDPOINT+this.props.match.params.id, obj)
             .then(res => {
                 console.log(res.data)
             });
 
-        this.props.history.push('/');
+        this.props.history.push(TODOLIST_PAGE_ENDPOINT);
     }
 
     render() {
