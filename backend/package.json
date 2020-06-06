@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "mongodb": "mongod --dbpath ./db/ --port 27017"
+    "mongodb": "mkdir -p ./db && mongod --dbpath ./db/ --port 27017"
   },
   "keywords": [],
   "author": "",
