@@ -15,7 +15,8 @@ import {
   LOGIN_PAGE_ENDPOINT,
   TODOLIST_PAGE_ENDPOINT,
   TODOEDIT_PAGE_ENDPOINT,
-  TODOCREATE_PAGE_ENDPOINT
+  TODOCREATE_PAGE_ENDPOINT,
+  PROFILE_PAGE_ENDPOINT
 } from "./constants";
 
 import Navbar from "./components/navbar.component";
@@ -25,6 +26,7 @@ import TodosList from "./components/todos-list.component";
 import Landing from "./components/landing.component";
 import Register from "./components/register.component";
 import Login from "./components/login.component";
+import Profile from "./components/profile.component";
 
 import PrivateRoute from "./components/private/private-route.component";
 
@@ -64,6 +66,7 @@ class App extends Component {
                 <PrivateRoute exact path={TODOLIST_PAGE_ENDPOINT} component={TodosList} />
                 <PrivateRoute path={TODOEDIT_PAGE_ENDPOINT + `/:id`} component={EditTodo} />
                 <PrivateRoute path={TODOCREATE_PAGE_ENDPOINT} component={CreateTodo} />
+                <PrivateRoute path={PROFILE_PAGE_ENDPOINT + `/:id`} component={Profile} />
               </Switch>
             </div>
           </div>

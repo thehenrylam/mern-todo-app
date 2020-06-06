@@ -8,6 +8,7 @@ import checkAuthenticated from "../utils/checkAuthenticated.util";
 import { connect } from 'react-redux';
 
 import {
+    PROFILE_PAGE_ENDPOINT,
     LANDING_PAGE_ENDPOINT,
     TODOLIST_PAGE_ENDPOINT,
     TODOCREATE_PAGE_ENDPOINT,
@@ -30,7 +31,6 @@ class Navbar extends Component {
     }
 
     componentDidMount() {
-        // var bLoggedIn = checkAuthenticated();
         var bLoggedIn = this.props.auth.isAuthenticated;
         if (this.state.loggedIn !== bLoggedIn) {
             this.setState({
@@ -110,6 +110,12 @@ class Navbar extends Component {
     }
 
     renderTodoUtilityButtons() {
+        let id = this.props.auth && this.props.auth.user && this.props.auth.user.id;
+        
+        if (id === null) {
+            id = '';
+        }
+
         return (
         <div className="nav-collapse">
             <ul className="navbar-nav mr-auto">
@@ -118,6 +124,9 @@ class Navbar extends Component {
                 </li>
                 <li className="navbar-item">
                 <Link to={TODOCREATE_PAGE_ENDPOINT} className="nav-link">Create Todo</Link>
+                </li>
+                <li className="navbar-item">
+                <Link to={`${PROFILE_PAGE_ENDPOINT}/${id}`} className="nav-link">Profile</Link>
                 </li>
             </ul>
         </div>
