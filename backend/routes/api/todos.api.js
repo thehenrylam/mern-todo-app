@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const keys = require("../../config/keys.secret");
-
+const validateJwtToken = require("../../validation/validateJwtToken");
 const Todo = require('../../models/todo.model');
 
 // @route GET todos/
