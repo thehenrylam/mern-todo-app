@@ -24,7 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # database
-*/db/*
+db/*
 
 # secrets
 *.secret.js
